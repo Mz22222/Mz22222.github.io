@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Мой первый сайт</title>
+    <title>Мой сайт с кнопками</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,17 +11,53 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        h1 {
-            font-size: 3em;
+        button {
+            background-color: white;
+            color: #764ba2;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
         }
-        p {
-            font-size: 1.2em;
+        button:hover {
+            transform: scale(1.05);
+            background-color: #f0f0f0;
+        }
+        .secret {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Привет, мир! 🎉</h1>
-    <p>Это мой первый сайт на GitHub Pages</p>
-    <p>Я могу поделиться им с кем угодно!</p>
+    <h1>Мой сайт с кнопками 🔘</h1>
+    
+    <!-- Кнопка-ссылка на другой сайт -->
+    <button onclick="location.href='https://ya.ru'">Перейти на Яндекс</button>
+    
+    <!-- Кнопка с сообщением -->
+    <button onclick="alert('Привет! Рада тебя видеть 💖')">Сказать привет</button>
+    
+    <!-- Кнопка, показывающая секретный блок -->
+    <button onclick="document.getElementById('secretBlock').style.display='block'">
+        Показать секрет
+    </button>
+    
+    <!-- Кнопка, меняющая цвет фона -->
+    <button onclick="document.body.style.background='linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'">
+        Сменить цвет
+    </button>
+    
+    <!-- Секретный блок (изначально скрыт) -->
+    <div id="secretBlock" class="secret">
+        🎉 Ура! Вы нашли секрет! 🎉
+    </div>
 </body>
 </html>
