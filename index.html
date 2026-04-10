@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Приглашение💖</title>
+    <title>Приглашение 💖 | Опросник</title>
     <style>
         * {
             margin: 0;
@@ -14,7 +14,7 @@
         body {
             min-height: 100vh;
             background: linear-gradient(145deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%);
-            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, 'Pacifico', cursive, sans-serif;
+            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -41,7 +41,7 @@
             }
         }
 
-        /* Главная карточка */
+        /* Карточка (общая для всех страниц) */
         .card {
             position: relative;
             z-index: 10;
@@ -131,34 +131,11 @@
             transform: translateY(-2px);
         }
 
-        /* Секретное сообщение */
-        .hidden-message {
-            margin-top: 30px;
-            background: #ffe4e9;
-            padding: 18px;
-            border-radius: 50px;
-            display: none;
-            animation: fadeInUp 0.6s ease;
-            font-size: 1.3rem;
-            color: #b83b5e;
-            border: 2px solid #ffb7c2;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .heart-icon {
             font-size: 2rem;
             margin-top: 15px;
             color: #ff5e8b;
+            cursor: pointer;
         }
 
         footer {
@@ -182,105 +159,104 @@
                 font-size: 1.3rem;
                 padding: 8px 22px;
             }
-            .btn-yes, .btn-no {
-                box-shadow: 0 5px 0 #aa2e4e;
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
             }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .page {
+            animation: fadeIn 0.5s ease;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
+<!-- СТРАНИЦА 1: Приглашение на свидание -->
+<div id="page1" class="card page">
     <h1>💌 Для тебя 💌</h1>
     <div class="gif-container">
-        <!-- Милая гифка-котик/сердечко через бесплатный API (можно заменить на свою картинку) -->
-        <img src="https://media1.tenor.com/m/Ol_v59QAUgEAAAAC/dance-cat.gif">
+        <img src="https://media1.tenor.com/m/Ol_v59QAUgEAAAAC/dance-cat.gif" alt="cute cat">
     </div>
     <div class="question">
         🌸 Пойдешь со мной на свидание? 🌸
     </div>
     <div class="buttons">
-        <button class="btn-yes" id="yesBtn">Да 💖</button>
-        <button class="btn-no" id="noBtn">Нет 🥺</button>
-    </div>
-    <div class="hidden-message" id="secretMessage">
-        🎉 Ура! Я так счастлива! 🎉<br>
-        🌹 Обнимаю и целую 🌹
+        <button class="btn-yes" id="page1YesBtn">Да 💖</button>
+        <button class="btn-no" id="page1NoBtn">Нет 🥺</button>
     </div>
     <div class="heart-icon">❤️ 🧡 💛 💚 💙 💜</div>
     <footer>нажми на сердечко ✨</footer>
 </div>
 
+<!-- СТРАНИЦА 2: Вопрос про оплату -->
+<div id="page2" class="card page" style="display: none;">
+    <h1>💸 Важный вопрос 💸</h1>
+    <div class="gif-container">
+        <img src="https://media1.tenor.com/m/V0GwWuBNVzMAAAAC/money-dollar.gif" alt="money gif">
+    </div>
+    <div class="question">
+        💰 Платишь ты? 💰
+    </div>
+    <div class="buttons">
+        <button class="btn-yes" id="page2YesBtn">Да 💸</button>
+        <button class="btn-no" id="page2NoBtn">Нет 😅</button>
+    </div>
+    <div class="heart-icon">❤️ 🧡 💛 💚 💙 💜</div>
+    <footer>честно-честно? 😊</footer>
+</div>
+
+<!-- СТРАНИЦА 3: Финальная (успех) -->
+<div id="page3" class="card page" style="display: none;">
+    <h1>🎉 УРА! 🎉</h1>
+    <div class="gif-container">
+        <img src="https://media1.tenor.com/m/5wWY3rZQY-wAAAAC/happy-dance-celebrate.gif" alt="celebration">
+    </div>
+    <div class="question">
+        💖 Свидание состоится! 💖<br>
+        <span style="font-size: 1.4rem;">(и ты платишь 😘)</span>
+    </div>
+    <div class="buttons">
+        <button class="btn-yes" id="restartBtn" style="background-color: #ff8da1;">🌹 Начать сначала 🌹</button>
+    </div>
+    <div class="heart-icon">❤️ 🧡 💛 💚 💙 💜</div>
+    <footer>спасибо, что согласилась ❤️</footer>
+</div>
+
 <script>
-    // === РОМАНТИЧЕСКАЯ МАГИЯ ===
-
-    // 1. Кнопка "ДА"
-    const yesBtn = document.getElementById('yesBtn');
-    const secretMsg = document.getElementById('secretMessage');
-    const noBtn = document.getElementById('noBtn');
-
-    yesBtn.addEventListener('click', () => {
-        secretMsg.style.display = 'block';
-        // Создаём фейерверк из сердечек
-        for (let i = 0; i < 35; i++) {
-            createHeartFirework();
+    // === УПРАВЛЕНИЕ СТРАНИЦАМИ ===
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const page3 = document.getElementById('page3');
+    
+    let currentPage = 1;
+    
+    function showPage(pageNumber) {
+        page1.style.display = 'none';
+        page2.style.display = 'none';
+        page3.style.display = 'none';
+        
+        if (pageNumber === 1) page1.style.display = 'block';
+        if (pageNumber === 2) page2.style.display = 'block';
+        if (pageNumber === 3) page3.style.display = 'block';
+        
+        currentPage = pageNumber;
+        
+        // Сбрасываем троллинг для кнопки "Нет" на странице 2 при её открытии
+        if (pageNumber === 2) {
+            resetNoButtonOnPage2();
         }
-        // Меняем фон страницы на более яркий
-        document.body.style.background = "linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%)";
-        // Можно добавить приятный звук? (в браузере не авто, но оставим как есть)
-        // Просто маленький сюрприз: меняем текст на кнопке
-        yesBtn.textContent = '💞 Спасибо! 💞';
-        yesBtn.disabled = true;
-        noBtn.style.opacity = '0.5';
-        noBtn.disabled = true;
-    });
-
-    // 2. Кнопка "НЕТ" с убеганием (милый троллинг)
-    let noClickCount = 0;
-    noBtn.addEventListener('click', () => {
-        noClickCount++;
-        if (noClickCount === 1) {
-            alert("🥺 Подумай ещё... Нажми ещё разок ❤️");
-            moveNoButton();
-        } else if (noClickCount === 2) {
-            alert("💖 Ну пожалуйста! Я знаю, ты передумаешь 💖");
-            moveNoButton();
-        } else if (noClickCount === 3) {
-            alert("😭 Ладно, не убегай... Но ты можешь нажать ДА? 😭");
-            moveNoButton();
-        } else if (noClickCount >= 4) {
-            alert("🎀 Хватит! Давай уже ДА 😘🎀");
-            moveNoButton();
-        }
-        // После 5 кликов кнопка нет исчезает
-        if (noClickCount >= 5) {
-            noBtn.style.display = 'none';
-            alert("✨ Кнопка 'Нет' испарилась от любви! Осталось только ДА ✨");
-        }
-    });
-
-    function moveNoButton() {
-        const maxX = window.innerWidth - noBtn.offsetWidth - 40;
-        const maxY = window.innerHeight - noBtn.offsetHeight - 80;
-        const randomX = Math.max(20, Math.min(maxX, Math.random() * maxX));
-        const randomY = Math.max(20, Math.min(maxY, Math.random() * maxY));
-        noBtn.style.position = 'fixed';
-        noBtn.style.left = `${randomX}px`;
-        noBtn.style.top = `${randomY}px`;
-        noBtn.style.zIndex = '999';
-        // Через 1.2 секунды возвращаем обратно в контейнер? Нет, пусть останется плавающей, но если выйти за пределы?
-        // Чтоб не терялась, через 2 секунды вернём в кнопки (только если не нажата ДА)
-        setTimeout(() => {
-            if (noBtn.disabled !== true && noBtn.style.display !== 'none') {
-                noBtn.style.position = 'relative';
-                noBtn.style.left = 'auto';
-                noBtn.style.top = 'auto';
-                document.querySelector('.buttons').appendChild(noBtn);
-            }
-        }, 1500);
     }
-
-    // 3. Функция падающих сердечек (фон)
+    
+    // === ОБЩИЕ ФУНКЦИИ ===
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart');
@@ -290,17 +266,11 @@
         heart.style.animationDuration = Math.random() * 3 + 2 + 's';
         heart.style.opacity = Math.random() * 0.6 + 0.3;
         document.body.appendChild(heart);
-        setTimeout(() => {
-            heart.remove();
-        }, 5000);
+        setTimeout(() => heart.remove(), 5000);
     }
-
-    // Падающие сердечки постоянно
-    setInterval(createHeart, 500);
-
-    // Фейерверк из сердечек при нажатии ДА
+    
     function createHeartFirework() {
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 15; i++) {
             setTimeout(() => {
                 const fireHeart = document.createElement('div');
                 fireHeart.classList.add('heart');
@@ -312,14 +282,154 @@
                 fireHeart.style.opacity = '1';
                 document.body.appendChild(fireHeart);
                 setTimeout(() => fireHeart.remove(), 1200);
-            }, i * 80);
+            }, i * 70);
         }
     }
-
-    // Нажатие на сердечки внизу (доп. радость)
-    document.querySelector('.heart-icon').addEventListener('click', () => {
+    
+    setInterval(createHeart, 500);
+    
+    // === ЛОГИКА ДЛЯ КНОПКИ "НЕТ" (убегание) ===
+    let noClickCountPage1 = 0;
+    let noClickCountPage2 = 0;
+    let noButtonPage2 = null;
+    
+    function moveNoButton(noBtn, pageNum) {
+        const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 80;
+        const randomX = Math.max(20, Math.min(maxX, Math.random() * maxX));
+        const randomY = Math.max(20, Math.min(maxY, Math.random() * maxY));
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+        noBtn.style.zIndex = '999';
+        
+        setTimeout(() => {
+            if (noBtn.disabled !== true && noBtn.style.display !== 'none') {
+                noBtn.style.position = 'relative';
+                noBtn.style.left = 'auto';
+                noBtn.style.top = 'auto';
+                const buttonsContainer = (pageNum === 1) 
+                    ? document.querySelector('#page1 .buttons') 
+                    : document.querySelector('#page2 .buttons');
+                if (buttonsContainer && !buttonsContainer.contains(noBtn)) {
+                    buttonsContainer.appendChild(noBtn);
+                }
+            }
+        }, 1500);
+    }
+    
+    // === СТРАНИЦА 1: Приглашение ===
+    const page1YesBtn = document.getElementById('page1YesBtn');
+    const page1NoBtn = document.getElementById('page1NoBtn');
+    
+    page1YesBtn.addEventListener('click', () => {
         createHeartFirework();
-        alert('💝 Ты нажал на сердечки! Люблю 💝');
+        showPage(2); // переходим к вопросу "Платишь ты?"
+    });
+    
+    page1NoBtn.addEventListener('click', () => {
+        noClickCountPage1++;
+        if (noClickCountPage1 === 1) {
+            alert("🥺 Подумай ещё... Нажми ещё разок ❤️");
+            moveNoButton(page1NoBtn, 1);
+        } else if (noClickCountPage1 === 2) {
+            alert("💖 Ну пожалуйста! Я знаю, ты передумаешь 💖");
+            moveNoButton(page1NoBtn, 1);
+        } else if (noClickCountPage1 === 3) {
+            alert("😭 Не убегай... Может всё-таки ДА? 😭");
+            moveNoButton(page1NoBtn, 1);
+        } else if (noClickCountPage1 >= 4) {
+            alert("🎀 Хватит убегать! Давай уже ДА 😘🎀");
+            moveNoButton(page1NoBtn, 1);
+        }
+        if (noClickCountPage1 >= 5) {
+            page1NoBtn.style.display = 'none';
+            alert("✨ Кнопка 'Нет' испарилась! Осталось только ДА ✨");
+        }
+    });
+    
+    // === СТРАНИЦА 2: Платишь ты? ===
+    const page2YesBtn = document.getElementById('page2YesBtn');
+    const page2NoBtn = document.getElementById('page2NoBtn');
+    noButtonPage2 = page2NoBtn;
+    
+    function resetNoButtonOnPage2() {
+        // Сбрасываем состояние кнопки "Нет" на странице 2
+        noClickCountPage2 = 0;
+        page2NoBtn.style.display = 'inline-block';
+        page2NoBtn.style.position = 'relative';
+        page2NoBtn.style.left = 'auto';
+        page2NoBtn.style.top = 'auto';
+        page2NoBtn.disabled = false;
+        page2NoBtn.style.opacity = '1';
+        const buttonsContainer = document.querySelector('#page2 .buttons');
+        if (!buttonsContainer.contains(page2NoBtn)) {
+            buttonsContainer.appendChild(page2NoBtn);
+        }
+    }
+    
+    page2YesBtn.addEventListener('click', () => {
+        createHeartFirework();
+        showPage(3); // финальная страница
+        // меняем фон на более яркий
+        document.body.style.background = "linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%)";
+    });
+    
+    page2NoBtn.addEventListener('click', () => {
+        noClickCountPage2++;
+        if (noClickCountPage2 === 1) {
+            alert("😅 Ну ладно... Но может передумаешь? 😅");
+            moveNoButton(page2NoBtn, 2);
+        } else if (noClickCountPage2 === 2) {
+            alert("💸 Давай, соглашайся! Я же потрачусь на цветы! 💸");
+            moveNoButton(page2NoBtn, 2);
+        } else if (noClickCountPage2 === 3) {
+            alert("🎈 Ну пожалуйста! Вжух — и ты платишь! 🎈");
+            moveNoButton(page2NoBtn, 2);
+        } else if (noClickCountPage2 >= 4) {
+            alert("💖 Ладно, хватит! Давай уже ДА! 💖");
+            moveNoButton(page2NoBtn, 2);
+        }
+        if (noClickCountPage2 >= 5) {
+            page2NoBtn.style.display = 'none';
+            alert("✨ Кнопка НЕТ исчезла! Придётся соглашаться))) ✨");
+        }
+    });
+    
+    // === СТРАНИЦА 3: Рестарт ===
+    const restartBtn = document.getElementById('restartBtn');
+    restartBtn.addEventListener('click', () => {
+        // Полный сброс
+        showPage(1);
+        // Сбрасываем счётчики и видимость кнопок
+        noClickCountPage1 = 0;
+        noClickCountPage2 = 0;
+        page1NoBtn.style.display = 'inline-block';
+        page1NoBtn.style.position = 'relative';
+        page1NoBtn.style.left = 'auto';
+        page1NoBtn.style.top = 'auto';
+        page1NoBtn.disabled = false;
+        page1NoBtn.style.opacity = '1';
+        
+        page2NoBtn.style.display = 'inline-block';
+        page2NoBtn.style.position = 'relative';
+        page2NoBtn.style.left = 'auto';
+        page2NoBtn.style.top = 'auto';
+        page2NoBtn.disabled = false;
+        page2NoBtn.style.opacity = '1';
+        
+        // Возвращаем фон
+        document.body.style.background = "linear-gradient(145deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%)";
+        
+        createHeartFirework();
+    });
+    
+    // === Сердечки внизу (кликабельные на всех страницах) ===
+    document.querySelectorAll('.heart-icon').forEach(icon => {
+        icon.addEventListener('click', () => {
+            createHeartFirework();
+            alert('💝 Ты нажал на сердечки! Люблю 💝');
+        });
     });
 </script>
 </body>
