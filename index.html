@@ -240,10 +240,7 @@
     </div>
     <div class="question">
         ЮХУУУУУУУУУУ!!!! ❤️❤️❤️❤️❤️<br>
-        <span style="font-size: 1.4rem;">💖 Свидание состоится))) 💖</span>
-    </div>
-    <div class="buttons">
-        <!-- <button class="btn-yes" id="restartBtn" style="background-color: #ff8da1;">🌹 Начать сначала 🌹</button> -->
+        <span style="font-size: 1.4rem;">💖 Свидание состоится! 💖</span>
     </div>
     <div class="heart-icon">❤️ 🧡 💛 💚 💙 💜</div>
 </div>
@@ -426,38 +423,6 @@
         setTimeout(() => {
             isMovingPage2 = false;
         }, 500);
-    });
-    
-    // === СТРАНИЦА 3: Рестарт ===
-    const restartBtn = document.getElementById('restartBtn');
-    restartBtn.addEventListener('click', () => {
-        // Полный сброс
-        showPage(1);
-        
-        // Сбрасываем счётчики и видимость кнопок
-        noClickCountPage1 = 0;
-        noClickCountPage2 = 0;
-        
-        page1NoBtn.style.display = 'inline-block';
-        page1NoBtn.style.position = 'relative';
-        page1NoBtn.style.left = 'auto';
-        page1NoBtn.style.top = 'auto';
-        page1NoBtn.disabled = false;
-        page1NoBtn.style.opacity = '1';
-        page1NoBtn.classList.remove('btn-no-hidden');
-        
-        page2NoBtn.style.display = 'inline-block';
-        page2NoBtn.style.position = 'relative';
-        page2NoBtn.style.left = 'auto';
-        page2NoBtn.style.top = 'auto';
-        page2NoBtn.disabled = false;
-        page2NoBtn.style.opacity = '1';
-        page2NoBtn.classList.remove('btn-no-hidden');
-        
-        // Возвращаем фон
-        document.body.style.background = "linear-gradient(145deg, #ff9a9e 0%, #fad0c4 50%, #fad0c4 100%)";
-        
-        createHeartFirework();
     });
     
     // === Сердечки внизу (кликабельные на всех страницах) ===
